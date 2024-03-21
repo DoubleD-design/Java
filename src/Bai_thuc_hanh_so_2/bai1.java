@@ -2,7 +2,7 @@ package Bai_thuc_hanh_so_2;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-public class PTB1 extends JFrame implements ActionListener {
+public class bai1 extends JFrame implements ActionListener {
     JLabel lb1,lb2,lb3,lb;
     JTextField txta,txtb,txtkg;
     JButton tinh,reset,thoat;
@@ -71,11 +71,11 @@ public class PTB1 extends JFrame implements ActionListener {
             System.exit(0);
         }
     }
-    public PTB1(String title){
+    public bai1(String title){
         super(title);
         GUI();
     }
     public  static void main(String[] args){
-        new PTB1("Giai phuong trinh bac nhat");
+        new bai1("Giai phuong trinh bac nhat");
     }
 }
