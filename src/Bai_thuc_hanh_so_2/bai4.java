@@ -7,7 +7,7 @@ class bai4 extends Frame implements ActionListener {
     Label lb1, lb2, lb3, lb4, lb5;
     TextField txt1, txt2, txt3, txt4, txt5;
     Button btnOK, btnReset, btnExit;
-    Panel pn, pn1, pn2;
+    Panel pn, pn1, pn2, pn3, pn4, pn5, pn6, pn7, pn8;
 
     public void GUI() {
         lb1 = new Label("Enter a String");
@@ -31,28 +31,105 @@ class bai4 extends Frame implements ActionListener {
         btnReset.addActionListener(this);
         btnExit.addActionListener(this);
 
-        pn = new Panel(new GridLayout(2, 1));
-        pn1 = new Panel(new GridLayout(5, 2));
-        pn2 = new Panel(new FlowLayout());
-        pn1.add(lb1);
-        pn1.add(txt1);
-        pn1.add(lb2);
-        pn1.add(txt2);
-        pn1.add(lb3);
-        pn1.add(txt3);
-        pn1.add(lb4);
-        pn1.add(txt4);
-        pn1.add(lb5);
-        pn1.add(txt5);
+        pn = new Panel(new GridBagLayout());
+        pn1 = new Panel(new GridBagLayout());
+        pn2 = new Panel(new GridBagLayout());
+        pn3 = new Panel(new GridBagLayout());
+        pn4 = new Panel(new GridBagLayout());
+        pn5 = new Panel(new GridLayout(1,3));
+        pn6 = new Panel(new FlowLayout());
+        pn7 = new Panel(new FlowLayout());
+        pn8 = new Panel(new FlowLayout());
 
-        pn2.add(btnOK);
-        pn2.add(btnReset);
-        pn2.add(btnExit);
+        GridBagConstraints gbc = new GridBagConstraints();
+        GridBagConstraints gbc1 = new GridBagConstraints();
+        GridBagConstraints gbc2 = new GridBagConstraints();
+        GridBagConstraints gbc3 = new GridBagConstraints();
+        GridBagConstraints gbc4 = new GridBagConstraints();
 
-        pn.add(pn1);
-        pn.add(pn2);
+        pn6.add(btnOK);
+        pn7.add(btnReset);
+        pn8.add(btnExit);
+        pn5.add(pn6);
+        pn5.add(pn7);
+        pn5.add(pn8);
+
+        gbc1.fill = GridBagConstraints.NONE;
+        gbc1.anchor = GridBagConstraints.SOUTHWEST;
+        pn1.add(txt1, gbc1);
+
+        gbc2.fill = GridBagConstraints.NONE;
+        gbc2.anchor = GridBagConstraints.SOUTHWEST;
+        pn2.add(txt2, gbc2);
+
+        gbc3.fill = GridBagConstraints.NONE;
+        gbc3.anchor = GridBagConstraints.SOUTHWEST;
+        pn3.add(txt3, gbc3);
+
+        gbc4.fill = GridBagConstraints.NONE;
+        gbc4.anchor = GridBagConstraints.SOUTHWEST;
+        pn4.add(txt4,gbc4);
+
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 1;
+        gbc.insets = new Insets(40,5,0,10);
+        pn.add(lb1, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.gridwidth = 3;
+        pn.add(pn1, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        gbc.gridwidth = 1;
+        pn.add(lb2, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        gbc.gridwidth = 3;
+        pn.add(pn2, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        gbc.gridwidth = 1;
+        pn.add(lb3, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        gbc.gridwidth = 3;
+        pn.add(pn3, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 1;
+        pn.add(lb4, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        gbc.gridwidth = 3;
+        pn.add(pn4, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 1;
+        pn.add(lb5, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
+        gbc.gridwidth = 3;
+        pn.add(txt5, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        gbc.gridheight = 2;
+        gbc.gridwidth = 4;
+        pn.add(pn5, gbc);
+
         add(pn);
-        setSize(500, 300);
+        setSize(400, 420);
         show();
     }
 
