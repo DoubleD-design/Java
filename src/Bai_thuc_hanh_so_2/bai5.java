@@ -75,14 +75,13 @@ public class bai5 extends JFrame implements ActionListener{
         smallbtnPanel.add(btnC);
         smallbtnPanel.add(btnSum);
 
-//      btnPanel.setSize(500,400);
+
         btnPanel.add(smallbtnPanel);
         btnPanel.add(btnEqual);
-//      smallbtnPanel.setSize(400,400);
-//      btnEqual.setSize(100,400);
+
 
         mainPanel.add(txtResult);
-//      txtResultArea.setSize(400,100);
+
         mainPanel.add(btnPanel);
 
         add(mainPanel);
