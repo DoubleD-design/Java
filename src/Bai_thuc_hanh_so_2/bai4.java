@@ -1,163 +1,134 @@
 package Bai_thuc_hanh_so_2;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.StringTokenizer;
+import javax.swing.*;
 
-class bai4 extends Frame implements ActionListener {
-    Label lb1, lb2, lb3, lb4, lb5;
-    TextField txt1, txt2, txt3, txt4, txt5;
-    Button btnOK, btnReset, btnExit;
-    Panel pn, pn1, pn2, pn3, pn4, pn5, pn6, pn7, pn8;
+class bai4 extends JFrame implements ActionListener {
+    JLabel lb1, lb2, lb3, lb4, lb5;
+    JTextField txt1, txt2, txt3, txt4, txt5;
+    JButton btnOK, btnReset, btnExit;
+    JPanel pn, pn1;
 
-    public void GUI() {
-        lb1 = new Label("Enter a String");
-        lb2 = new Label("To UpperCase");
-        lb3 = new Label("To LowerCase");
-        lb4 = new Label("To LowerUpper");
-        lb5 = new Label("Number of word");
-
-
-        txt1 = new TextField(30);
-        txt2 = new TextField(30);
-        txt3 = new TextField(30);
-        txt4 = new TextField(30);
-        txt5 = new TextField(30);
-
-        btnOK = new Button("OK");
-        btnReset = new Button("Reset");
-        btnExit = new Button("Exit");
-
+    public void GUI(){
+        lb1 = new JLabel("Enter a String:");
+        txt1 = new JTextField(30);
+        lb2 = new JLabel("To Upper Case:");
+        txt2 = new JTextField(30);
+        txt2.setEnabled(false);
+        lb3 = new JLabel("To Lower Case:");
+        txt3 = new JTextField(30);
+        txt3.setEnabled(false);
+        lb4 = new JLabel("To LowerUpper:");
+        txt4 = new JTextField(30);
+        txt4.setEnabled(false);
+        lb5 = new JLabel("Number of word:");
+        txt5 = new JTextField(30);
+        txt5.setEnabled(false);
+        btnOK = new JButton("OK");
         btnOK.addActionListener(this);
+        btnReset = new JButton("Reset");
         btnReset.addActionListener(this);
+        btnExit = new JButton("Exit");
         btnExit.addActionListener(this);
 
-        pn = new Panel(new GridBagLayout());
-        pn1 = new Panel(new GridBagLayout());
-        pn2 = new Panel(new GridBagLayout());
-        pn3 = new Panel(new GridBagLayout());
-        pn4 = new Panel(new GridBagLayout());
-        pn5 = new Panel(new GridLayout(1,3));
-        pn6 = new Panel(new FlowLayout());
-        pn7 = new Panel(new FlowLayout());
-        pn8 = new Panel(new FlowLayout());
-
+        pn = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
-        GridBagConstraints gbc1 = new GridBagConstraints();
-        GridBagConstraints gbc2 = new GridBagConstraints();
-        GridBagConstraints gbc3 = new GridBagConstraints();
-        GridBagConstraints gbc4 = new GridBagConstraints();
+        addComponent(pn, lb1, 0,0,1,1,gbc);
+        addComponent(pn, txt1, 1,0,3,1,gbc);
+        addComponent(pn, lb2, 0,1,1,1,gbc);
+        addComponent(pn, txt2, 1, 1, 3,1, gbc);
+        addComponent(pn, lb3, 0,2,1,1,gbc);
+        addComponent(pn, txt3, 1, 2, 3,1, gbc);
+        addComponent(pn, lb4, 0,3,1,1,gbc);
+        addComponent(pn, txt4, 1, 3, 3,1, gbc);
+        addComponent(pn, lb5, 0,4,1,1,gbc);
+        addComponent(pn, txt5, 1, 4, 3,1, gbc);
 
-        pn6.add(btnOK);
-        pn7.add(btnReset);
-        pn8.add(btnExit);
-        pn5.add(pn6);
-        pn5.add(pn7);
-        pn5.add(pn8);
+        pn1 = new JPanel(new FlowLayout(20,0,20));
+        pn1.add(btnOK);
+        pn1.add(btnReset);
+        pn1.add(btnExit);
 
-        gbc1.fill = GridBagConstraints.NONE;
-        gbc1.anchor = GridBagConstraints.SOUTHWEST;
-        pn1.add(txt1, gbc1);
-
-        gbc2.fill = GridBagConstraints.NONE;
-        gbc2.anchor = GridBagConstraints.SOUTHWEST;
-        pn2.add(txt2, gbc2);
-
-        gbc3.fill = GridBagConstraints.NONE;
-        gbc3.anchor = GridBagConstraints.SOUTHWEST;
-        pn3.add(txt3, gbc3);
-
-        gbc4.fill = GridBagConstraints.NONE;
-        gbc4.anchor = GridBagConstraints.SOUTHWEST;
-        pn4.add(txt4,gbc4);
-
-        gbc.fill = GridBagConstraints.NONE;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 1;
-        gbc.insets = new Insets(40,5,0,10);
-        pn.add(lb1, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        pn.add(pn1, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 1;
-        pn.add(lb2, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.gridwidth = 3;
-        pn.add(pn2, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.gridwidth = 1;
-        pn.add(lb3, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = 3;
-        pn.add(pn3, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 1;
-        pn.add(lb4, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.gridwidth = 3;
-        pn.add(pn4, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.gridwidth = 1;
-        pn.add(lb5, gbc);
-
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 3;
-        pn.add(txt5, gbc);
-
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridheight = 2;
-        gbc.gridwidth = 4;
-        pn.add(pn5, gbc);
-
+        addComponent(pn,pn1,0,5,5,2,gbc);
         add(pn);
-        setSize(400, 420);
+        setSize(520,500);
         show();
     }
 
-    public static int countWords(String sentence) {
-        if (sentence == null || sentence.isEmpty()) {
-            return 0;
+    public void addComponent(JPanel gb,Component cp, int grid_x, int grid_y,int width, int height ,GridBagConstraints gbc){
+        gbc.gridx = grid_x;
+        gbc.gridy = grid_y;
+        gbc.gridwidth = width;
+        gbc.gridheight = height;
+        gbc.insets = new Insets(40,5,0, 10);
+        gb.add(cp,gbc);
+    }
+
+    public String Uppercase(String str){
+        String res = "";
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            if(c >= 'a' && c <= 'z'){
+                c -= 32;
+            }
+            res += c;
         }
-        StringTokenizer tokens = new StringTokenizer(sentence);
-        return tokens.countTokens();
+        return res;
+    }
+    public String Lowercase(String str){
+        String res = "";
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            if(c >= 'A' && c <= 'Z'){
+                c += 32;
+            }
+            res += c;
+        }
+        return res;
+    }
+    public String LowerUpper(String str){
+        String res = "";
+        for(int i = 0; i < str.length(); i++){
+            char c = str.charAt(i);
+            if(c >= 'a' && c <= 'z') {
+                c -= 32;
+            }else if(c >= 'A' && c <= 'Z'){
+                c += 32;
+            }
+            res += c;
+        }
+        return res;
+    }
+    public static int countWords(String input) {
+        int wordCount = 0;
+        boolean isWord = false;
+        int endOfLine = input.length() - 1;
+
+        for (int i = 0; i < input.length(); i++) {
+            // Nếu ký tự hiện tại là một chữ cái và nó không phải là cuối cùng của chuỗi,
+            // đặt isWord thành true.
+            if (Character.isLetter(input.charAt(i)) && i != endOfLine) {
+                isWord = true;
+                // Nếu ký tự hiện tại không phải là một chữ cái và isWord đã được đặt,
+                // tăng wordCount lên 1 vì đã kết thúc một từ.
+            } else if (!Character.isLetter(input.charAt(i)) && isWord) {
+                wordCount++;
+                isWord = false;
+                // Nếu ký tự cuối cùng là một chữ cái thì tăng wordCount lên 1 vì nó cũng là một từ.
+            } else if (Character.isLetter(input.charAt(i)) && i == endOfLine) {
+                wordCount++;
+            }
+        }
+
+        return wordCount;
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnOK) {
-            txt2.setText(txt1.getText().toUpperCase());
-            txt3.setText(txt1.getText().toLowerCase());
-            String temp = txt1.getText();
-            StringBuffer result = new StringBuffer(temp);
-
-            for (int i = 0; i < temp.length(); i++) {
-                if (Character.isLowerCase(temp.charAt(i))) {
-                    result.setCharAt(i, Character.toUpperCase(temp.charAt(i)));
-                }
-                if (Character.isUpperCase(temp.charAt(i))) {
-                    result.setCharAt(i, Character.toLowerCase(temp.charAt(i)));
-                }
-            }
-            txt4.setText(result.toString());
-            txt5.setText(String.valueOf(countWords(temp)));
+            txt2.setText(Uppercase(txt1.getText()));
+            txt3.setText(Lowercase(txt1.getText()));
+            txt4.setText(LowerUpper(txt1.getText()));
+            txt5.setText(String.valueOf(countWords(txt1.getText())));
         }
 
         if (e.getSource() == btnReset) {
