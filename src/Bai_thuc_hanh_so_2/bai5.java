@@ -2,38 +2,40 @@ package Bai_thuc_hanh_so_2;
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
+import java.util.*;
+
 
 public class bai5 extends JFrame implements ActionListener{
     JTextField txtResult;
-    Button btn7, btn8, btn9, btnDiv, btn4,
+    JButton btn7, btn8, btn9, btnDiv, btn4,
             btn5, btn6, btnMult, btn1, btn2, btn3,
             btnMinus, btn0, btnDot, btnC, btnSum, btnEqual;
-    Panel resultPanel, mainPanel, smallbtnPanel, btnPanel;
+    JPanel btnPanel, mainPanel;
 
     public void GUI() {
         txtResult = new JTextField();
         txtResult.setHorizontalAlignment(JTextField.RIGHT);
         txtResult.setEditable(false);
-        btn0 = new Button("0");
-        btn1 = new Button("1");
-        btn2 = new Button("2");
-        btn3 = new Button("3");
-        btn4 = new Button("4");
-        btn5 = new Button("5");
-        btn6 = new Button("6");
-        btn7 = new Button("7");
-        btn8 = new Button("8");
-        btn9 = new Button("9");
-        btnDot = new Button(".");
-        btnC = new Button("C");
-        btnSum = new Button("+");
-        btnMinus = new Button("-");
-        btnMult = new Button("*");
-        btnDiv = new Button("/");
-        btnEqual = new Button("=");
+        txtResult.setPreferredSize(new Dimension(200, 50));
+        txtResult.setFont(new Font("Roboto", Font.PLAIN, 20));
+
+        btn0 = new JButton("0");
+        btn1 = new JButton("1");
+        btn2 = new JButton("2");
+        btn3 = new JButton("3");
+        btn4 = new JButton("4");
+        btn5 = new JButton("5");
+        btn6 = new JButton("6");
+        btn7 = new JButton("7");
+        btn8 = new JButton("8");
+        btn9 = new JButton("9");
+        btnDot = new JButton(".");
+        btnC = new JButton("C");
+        btnSum = new JButton("+");
+        btnMinus = new JButton("-");
+        btnMult = new JButton("*");
+        btnDiv = new JButton("/");
+        btnEqual = new JButton("=");
 
         btn0.addActionListener(this);
         btn1.addActionListener(this);
@@ -53,62 +55,140 @@ public class bai5 extends JFrame implements ActionListener{
         btnDiv.addActionListener(this);
         btnEqual.addActionListener(this);
 
-        mainPanel = new Panel(new GridLayout(2, 1));
-        btnPanel = new Panel(new GridLayout(1, 3));
-        resultPanel = new Panel(new FlowLayout());
-        smallbtnPanel = new Panel(new GridLayout(4, 4));
+        btnPanel = new JPanel(new GridLayout(4,4));
+        btnPanel.add(btn7);
+        btnPanel.add(btn8);
+        btnPanel.add(btn9);
+        btnPanel.add(btnDiv);
+        btnPanel.add(btn4);
+        btnPanel.add(btn5);
+        btnPanel.add(btn6);
+        btnPanel.add(btnMult);
+        btnPanel.add(btn1);
+        btnPanel.add(btn2);
+        btnPanel.add(btn3);
+        btnPanel.add(btnMinus);
+        btnPanel.add(btn0);
+        btnPanel.add(btnDot);
+        btnPanel.add(btnC);
+        btnPanel.add(btnSum);
 
-        smallbtnPanel.add(btn7);
-        smallbtnPanel.add(btn8);
-        smallbtnPanel.add(btn9);
-        smallbtnPanel.add(btnDiv);
-        smallbtnPanel.add(btn4);
-        smallbtnPanel.add(btn5);
-        smallbtnPanel.add(btn6);
-        smallbtnPanel.add(btnMult);
-        smallbtnPanel.add(btn1);
-        smallbtnPanel.add(btn2);
-        smallbtnPanel.add(btn3);
-        smallbtnPanel.add(btnMinus);
-        smallbtnPanel.add(btn0);
-        smallbtnPanel.add(btnDot);
-        smallbtnPanel.add(btnC);
-        smallbtnPanel.add(btnSum);
-
-
-        btnPanel.add(smallbtnPanel);
-        btnPanel.add(btnEqual);
-
-
-        mainPanel.add(txtResult);
-
-        mainPanel.add(btnPanel);
-
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(txtResult, BorderLayout.NORTH);
+        mainPanel.add(btnPanel, BorderLayout.CENTER);
+        mainPanel.add(btnEqual, BorderLayout.EAST);
         add(mainPanel);
-        setSize(400, 300);
+        setSize(500,300);
         show();
     }
-    public static String evaluateExpression(String expression) {
-        ScriptEngineManager manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("js");
 
-        try {
-            Object result = engine.eval(expression);
-            if (result instanceof Double) {
-                double doubleResult = (Double) result;
-                if (doubleResult == (int) doubleResult) {
-                    return String.valueOf((int) doubleResult);
-                } else {
-                    return String.valueOf(doubleResult);
-                }
-            }
+    public static String calculate(String expression) {
+        String postfix = infixToPostfix(expression);
+        double result = evaluatePostfix(postfix);
+
+        if (result == (int) result) {
+            return String.valueOf((int) result);
+        } else {
             return String.valueOf(result);
-        } catch (ScriptException e) {
-            e.printStackTrace();
         }
-        return "Không thể tính toán kết quả.";
     }
 
+    public static String infixToPostfix(String expression) {
+        StringBuilder result = new StringBuilder();
+        Stack<Character> stack = new Stack<>();
+        String number = "";
+
+        for (int i = 0; i < expression.length(); i++) {
+            char c = expression.charAt(i);
+
+            if (Character.isDigit(c) || c == '.') {
+                number += c;
+            } else {
+                if (!number.isEmpty()) {
+                    result.append(number).append(" ");
+                    number = "";
+                }
+
+                if (c == '(') {
+                    stack.push(c);
+                } else if (c == ')') {
+                    while (!stack.isEmpty() && stack.peek() != '(') {
+                        result.append(stack.pop()).append(" ");
+                    }
+                    if (!stack.isEmpty() && stack.peek() != '(') {
+                        return "Invalid Expression";
+                    } else {
+                        stack.pop();
+                    }
+                } else {
+                    while (!stack.isEmpty() && precedence(c) <= precedence(stack.peek())) {
+                        result.append(stack.pop()).append(" ");
+                    }
+                    stack.push(c);
+                }
+            }
+        }
+
+        if (!number.isEmpty()) {
+            result.append(number).append(" ");
+        }
+
+        while (!stack.isEmpty()) {
+            result.append(stack.pop()).append(" ");
+        }
+
+        return result.toString();
+    }
+
+    public static int precedence(char ch) {
+        switch (ch) {
+            case '+':
+            case '-':
+                return 1;
+            case '*':
+            case '/':
+                return 2;
+            case '^':
+                return 3;
+        }
+        return -1;
+    }
+
+    public static double evaluatePostfix(String expression) {
+        Stack<Double> stack = new Stack<>();
+        String[] tokens = expression.split(" ");
+
+        for (String token : tokens) {
+            if (token.isEmpty()) {
+                continue;
+            }
+
+            char c = token.charAt(0);
+
+            if (Character.isDigit(c) || token.length() > 1) {
+                stack.push(Double.parseDouble(token));
+            } else {
+                double val1 = stack.pop();
+                double val2 = stack.pop();
+
+                switch (c) {
+                    case '+':
+                        stack.push(val2 + val1);
+                        break;
+                    case '-':
+                        stack.push(val2 - val1);
+                        break;
+                    case '/':
+                        stack.push(val2 / val1);
+                        break;
+                    case '*':
+                        stack.push(val2 * val1);
+                        break;
+                }
+            }
+        }
+        return stack.pop();
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == btn0){
@@ -158,12 +238,21 @@ public class bai5 extends JFrame implements ActionListener{
         }
         if(e.getSource() == btnEqual){
             String a = txtResult.getText();
-            txtResult.setText(evaluateExpression(a));
+            txtResult.setText(calculate(a));
+        }
+        if(e.getSource() == btnC){
+            txtResult.setText("");
         }
     }
+
     public bai5(String title){
         super(title);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public  static void main(String[] args){
         new bai5("Calculator");
