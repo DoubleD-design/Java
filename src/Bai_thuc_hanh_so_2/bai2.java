@@ -97,6 +97,11 @@ public class bai2 extends JFrame implements ActionListener{
     public bai2(String title){
         super(title);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public  static void main(String[] args){
         new bai2("Arithmetic Operations");

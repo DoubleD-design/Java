@@ -46,7 +46,11 @@ public class bai9 extends JFrame implements MouseListener{
     public bai9(String st) {
         super(st);
         GUI();
-
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public static void main(String[] args) {
         new bai9("Mouse");

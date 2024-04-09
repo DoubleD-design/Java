@@ -64,6 +64,11 @@ public class bai10 extends JFrame implements WindowListener{
     public bai10(String st) {
         super(st);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public static void main(String[] args) {
         new bai10("Menu");

@@ -47,6 +47,11 @@ public class bai3 extends JFrame implements ActionListener{
     public bai3(String title){
         super(title);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public  static void main(String[] args){
         new bai3("Change Background");

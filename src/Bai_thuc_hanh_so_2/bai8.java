@@ -31,6 +31,11 @@ public class bai8 extends JFrame implements KeyListener {
     public bai8(String st) {
         super(st);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public static void main(String[] args) {
         new bai8("Key");

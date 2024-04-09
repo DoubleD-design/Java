@@ -74,6 +74,11 @@ public class bai1 extends JFrame implements ActionListener {
     public bai1(String title){
         super(title);
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
     public  static void main(String[] args){
         new bai1("Giai phuong trinh bac nhat");

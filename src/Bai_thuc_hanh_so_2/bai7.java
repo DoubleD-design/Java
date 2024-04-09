@@ -80,6 +80,11 @@ public class bai7 extends JFrame {
     public bai7() {
         super("Item Event");
         GUI();
+        addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                dispose();
+            }
+        });
     }
 
     public static void main(String[] args) {
