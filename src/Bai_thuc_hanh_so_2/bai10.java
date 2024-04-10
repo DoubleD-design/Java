@@ -11,7 +11,12 @@ public class bai10 extends JFrame implements WindowListener{
         file.add(new MenuItem("Open"));
         file.add(new MenuItem("Save"));
         file.add(new MenuItem("Save As"));
-        file.add(new MenuItem("Close"));
+        MenuItem close = new MenuItem("Close");
+        close.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         edit = new Menu("Edit");
         edit.add(new MenuItem("Copy"));
